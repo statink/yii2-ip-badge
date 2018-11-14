@@ -1,5 +1,20 @@
-.PHONY: all
-all: vendor
+RESOURCES := \
+	resources/badge.min.css \
+	resources/badge.min.css.br \
+	resources/badge.min.css.gz
+
+.PHONY: all php js clean dist-clean
+all: php js
+
+php: vendor
+
+js: $(RESOURCES)
+
+dist-clean: clean
+	rm -rf composer.phar vendor node_modules
+
+clean:
+	rm -rf resources/*.css resources/*.css.gz resources/*.css.br
 
 vendor: composer.lock composer.phar
 	COMPOSER_ALLOW_SUPERUSER=1 ./composer.phar install --prefer-dist -vvv
@@ -13,3 +28,24 @@ composer.json: composer.json5
 composer.phar:
 	curl -sSL 'https://getcomposer.org/installer' | php -- --stable
 	touch -r composer.json $@
+
+node_modules: package-lock.json
+	npm install
+
+package-lock.json: package.json
+	npm update
+
+.PRECIOUS: %.css
+%.css: %.sass node_modules
+	npx sass --indented --no-source-map --quiet $< | \
+		npx postcss --no-map --use autoprefixer -o $@
+
+.PRECIOUS: %.min.css
+%.min.css: %.css node_modules
+	npx cleancss -o $@ $<
+
+%.gz: %
+	gzip -9 < $< > $@
+
+%.br: %
+	bro --force --quality 11 --input $< --output $@ --no-copy-stat

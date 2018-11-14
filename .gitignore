@@ -5,6 +5,7 @@
 .settings
 /.vagrant
 /composer.phar
+/node_modules/
 /phpunit.phar
 /phpunit.xml
 /tests/_output/*
