@@ -1,20 +1,20 @@
-RESOURCES := \
-	resources/badge.min.css \
-	resources/badge.min.css.br \
-	resources/badge.min.css.gz
+ASSETS := \
+	assets/badge.min.css \
+	assets/badge.min.css.br \
+	assets/badge.min.css.gz
 
 .PHONY: all php js clean dist-clean
 all: php js
 
 php: vendor
 
-js: $(RESOURCES)
+js: $(ASSETS)
 
 dist-clean: clean
 	rm -rf composer.phar vendor node_modules
 
 clean:
-	rm -rf resources/*.css resources/*.css.gz resources/*.css.br
+	rm -rf assets/*.css assets/*.css.gz assets/*.css.br
 
 vendor: composer.lock composer.phar
 	COMPOSER_ALLOW_SUPERUSER=1 ./composer.phar install --prefer-dist -vvv
