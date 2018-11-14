@@ -1,6 +1,6 @@
 /*! Copyright (C) AIZAWA Hina | MIT License */
 @media all {
-  .via-badge.navbar-brand {
+  .navbar .via-badge {
     display: none !important;
   }
 }
@@ -16,9 +16,10 @@
     background-color: #333;
     color: #9d9d9d !important;
   }
-  .via-badge.navbar-brand {
+
+  .navbar .via-badge {
     display: block !important;
-    padding-left: 15px;
-    padding-right: 7px;
+    margin-left: 15px;
+    margin-right: 7px;
   }
 }
