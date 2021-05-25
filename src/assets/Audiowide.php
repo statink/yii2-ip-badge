@@ -15,6 +15,6 @@ use yii\web\AssetBundle;
 class Audiowide extends AssetBundle
 {
     public $css = [
-        'https://fonts.googleapis.com/css?family=Audiowide',
+        'https://fonts.googleapis.com/css2?family=Audiowide&display=swap',
     ];
 }
